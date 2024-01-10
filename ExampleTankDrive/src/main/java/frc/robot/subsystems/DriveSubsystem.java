@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import java.util.function.DoubleSupplier;
+
 import org.lasarobotics.hardware.kauailabs.NavX2;
 import org.lasarobotics.hardware.revrobotics.Spark;
 import org.lasarobotics.hardware.revrobotics.Spark.MotorKind;
@@ -12,6 +14,7 @@ import org.lasarobotics.utils.GlobalConstants;
 import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.SparkPIDController.ArbFFUnits;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -84,9 +87,13 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   // Controls the robot during teleop
-  public void teleop(double speed, double turn) {
+  private void teleop(double speed, double turn) {
     m_lMasterMotor.set(speed, ControlType.kDutyCycle, -turn, ArbFFUnits.kPercentOut);
     m_rMasterMotor.set(speed, ControlType.kDutyCycle, +turn, ArbFFUnits.kPercentOut);
+  }
+
+  public Command driveCommand(DoubleSupplier speedRequest, DoubleSupplier turnRequest) {
+    return run(() -> teleop(speedRequest.getAsDouble(), turnRequest.getAsDouble()));
   }
 
   @Override

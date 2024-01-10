@@ -30,10 +30,10 @@ public class RobotContainer {
     configureBindings();
 
     DRIVE_SUBSYSTEM.setDefaultCommand(
-      new RunCommand(
-          () -> DRIVE_SUBSYSTEM.teleop(PRIMARY_CONTROLLER.getLeftY(), PRIMARY_CONTROLLER.getRightX()), 
-          DRIVE_SUBSYSTEM
-        )
+      DRIVE_SUBSYSTEM.driveCommand(
+        () -> PRIMARY_CONTROLLER.getLeftY(), 
+        () -> PRIMARY_CONTROLLER.getRightX()
+      )
     );
   }
 
