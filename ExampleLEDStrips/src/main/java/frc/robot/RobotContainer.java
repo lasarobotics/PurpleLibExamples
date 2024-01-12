@@ -22,7 +22,7 @@ public class RobotContainer {
     configureBindings();
 
     // Led Example
-    LEDStrip strip = new LEDStrip(LEDStrip.initializeHardware(null));
+    LEDStrip strip = new LEDStrip(LEDStrip.initializeHardware(Constants.LEDHardware.LED_STRIP_ID));
     strip.set(Pattern.BLUE_SOLID);
     strip.set(Pattern.ORANGE_WAVE, Section.MIDDLE);
     LED_SUBSYSTEM.add(strip);
