@@ -14,8 +14,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class RobotContainer {
-  private static final LEDSubsystem LED_SUBSYSTEM = LEDSubsystem.getInstance();
-
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
@@ -23,9 +21,10 @@ public class RobotContainer {
 
     // Led Example
     LEDStrip strip = new LEDStrip(LEDStrip.initializeHardware(Constants.LEDHardware.LED_STRIP_ID));
+    LEDSubsystem.getInstance().add(strip);
+
     strip.set(Pattern.BLUE_SOLID);
     strip.set(Pattern.ORANGE_WAVE, Section.MIDDLE);
-    LED_SUBSYSTEM.add(strip);
   }
 
   /**
