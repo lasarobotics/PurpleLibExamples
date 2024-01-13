@@ -38,7 +38,7 @@ public class Robot extends LoggedRobot {
   public void robotInit() {
     // AdvantageKit Logging
     BatteryTracker batteryTracker = new BatteryTracker(BatteryTracker.initializeHardware());
-    Logger.recordMetadata("ProjectName", "PurpleSwerve");
+    Logger.recordMetadata("ProjectName", "ExampleTankDrive");
     Logger.recordMetadata("BatteryName", batteryTracker.scanBattery());
     new PowerDistribution(1, ModuleType.kRev);
     if (isReal()) {
