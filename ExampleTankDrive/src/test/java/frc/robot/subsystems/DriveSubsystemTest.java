@@ -15,7 +15,6 @@ import org.mockito.AdditionalMatchers;
 import org.mockito.ArgumentMatchers;
 
 import com.revrobotics.CANSparkBase.ControlType;
-import com.revrobotics.SparkPIDController.ArbFFUnits;
 
 public class DriveSubsystemTest {
     private final double DELTA = 5e-3;
@@ -63,10 +62,8 @@ public class DriveSubsystemTest {
         // Drive forward
         m_driveSubsystem.driveCommand(() -> +1.0, () -> 0.0).execute();
         // Verify that the left and right motors are being driven with the expected values.
-        verify(m_lMasterMotor, times(1)).set(AdditionalMatchers.eq(+MAX_MOTOR_OUTPUT, DELTA), ArgumentMatchers.eq(ControlType.kDutyCycle),
-                                    AdditionalMatchers.eq(0.0, DELTA), ArgumentMatchers.eq(ArbFFUnits.kPercentOut));
-        verify(m_rMasterMotor, times(1)).set(AdditionalMatchers.eq(+MAX_MOTOR_OUTPUT, DELTA), ArgumentMatchers.eq(ControlType.kDutyCycle),
-                                    AdditionalMatchers.eq(0.0, DELTA), ArgumentMatchers.eq(ArbFFUnits.kPercentOut));
+        verify(m_lMasterMotor, times(1)).set(AdditionalMatchers.eq(+MAX_MOTOR_OUTPUT, DELTA), ArgumentMatchers.eq(ControlType.kDutyCycle));
+        verify(m_rMasterMotor, times(1)).set(AdditionalMatchers.eq(+MAX_MOTOR_OUTPUT, DELTA), ArgumentMatchers.eq(ControlType.kDutyCycle));
     }
     @Test
     @Order(2)
@@ -75,10 +72,8 @@ public class DriveSubsystemTest {
         // Drive backward
         m_driveSubsystem.driveCommand(() -> -1.0, () -> 0.0).execute();
         // Verify that the left and right motors are being driven with the expected values.
-        verify(m_lMasterMotor, times(1)).set(AdditionalMatchers.eq(-MAX_MOTOR_OUTPUT, DELTA), ArgumentMatchers.eq(ControlType.kDutyCycle),
-                                    AdditionalMatchers.eq(0.0, DELTA), ArgumentMatchers.eq(ArbFFUnits.kPercentOut));
-        verify(m_rMasterMotor, times(1)).set(AdditionalMatchers.eq(-MAX_MOTOR_OUTPUT, DELTA), ArgumentMatchers.eq(ControlType.kDutyCycle),
-                                    AdditionalMatchers.eq(0.0, DELTA), ArgumentMatchers.eq(ArbFFUnits.kPercentOut));
+        verify(m_lMasterMotor, times(1)).set(AdditionalMatchers.eq(-MAX_MOTOR_OUTPUT, DELTA), ArgumentMatchers.eq(ControlType.kDutyCycle));
+        verify(m_rMasterMotor, times(1)).set(AdditionalMatchers.eq(-MAX_MOTOR_OUTPUT, DELTA), ArgumentMatchers.eq(ControlType.kDutyCycle));
     }
 
     @Test
@@ -88,10 +83,8 @@ public class DriveSubsystemTest {
         // Turn left
         m_driveSubsystem.driveCommand(() -> +0.0, () -> -1.0).execute();
         // Verify that the left and right motors are being driven with the expected values.
-        verify(m_lMasterMotor, times(1)).set(AdditionalMatchers.eq(0.0, DELTA), ArgumentMatchers.eq(ControlType.kDutyCycle),
-                                    AdditionalMatchers.gt(0.0), ArgumentMatchers.eq(ArbFFUnits.kPercentOut));
-        verify(m_rMasterMotor, times(1)).set(AdditionalMatchers.eq(0.0, DELTA), ArgumentMatchers.eq(ControlType.kDutyCycle),
-                                    AdditionalMatchers.lt(0.0), ArgumentMatchers.eq(ArbFFUnits.kPercentOut));
+        verify(m_lMasterMotor, times(1)).set(AdditionalMatchers.eq(MAX_MOTOR_OUTPUT, DELTA), ArgumentMatchers.eq(ControlType.kDutyCycle));
+        verify(m_rMasterMotor, times(1)).set(AdditionalMatchers.eq(-MAX_MOTOR_OUTPUT, DELTA), ArgumentMatchers.eq(ControlType.kDutyCycle));
     }
 
     @Test
@@ -101,9 +94,7 @@ public class DriveSubsystemTest {
         // Drive forward
         m_driveSubsystem.driveCommand(() -> +0.0, () -> +1.0).execute();
         // Verify that the left and right motors are being driven with the expected values.
-        verify(m_lMasterMotor, times(1)).set(AdditionalMatchers.eq(0.0, DELTA), ArgumentMatchers.eq(ControlType.kDutyCycle),
-                                    AdditionalMatchers.lt(0.0), ArgumentMatchers.eq(ArbFFUnits.kPercentOut));
-        verify(m_rMasterMotor, times(1)).set(AdditionalMatchers.eq(0.0, DELTA), ArgumentMatchers.eq(ControlType.kDutyCycle),
-                                    AdditionalMatchers.gt(0.0), ArgumentMatchers.eq(ArbFFUnits.kPercentOut));
+        verify(m_lMasterMotor, times(1)).set(AdditionalMatchers.eq(-MAX_MOTOR_OUTPUT, DELTA), ArgumentMatchers.eq(ControlType.kDutyCycle));
+        verify(m_rMasterMotor, times(1)).set(AdditionalMatchers.eq(MAX_MOTOR_OUTPUT, DELTA), ArgumentMatchers.eq(ControlType.kDutyCycle));
     }
 }

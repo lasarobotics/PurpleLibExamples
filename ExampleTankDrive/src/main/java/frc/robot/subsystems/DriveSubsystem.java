@@ -12,7 +12,6 @@ import org.lasarobotics.hardware.revrobotics.Spark.MotorKind;
 import org.lasarobotics.utils.GlobalConstants;
 
 import com.revrobotics.CANSparkBase.ControlType;
-import com.revrobotics.SparkPIDController.ArbFFUnits;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -88,8 +87,8 @@ public class DriveSubsystem extends SubsystemBase implements AutoCloseable {
 
   // Controls the robot during teleop
   private void teleop(double speed, double turn) {
-    m_lMasterMotor.set(speed, ControlType.kDutyCycle, -turn, ArbFFUnits.kPercentOut);
-    m_rMasterMotor.set(speed, ControlType.kDutyCycle, +turn, ArbFFUnits.kPercentOut);
+    m_lMasterMotor.set(speed - turn, ControlType.kDutyCycle);
+    m_rMasterMotor.set(speed + turn, ControlType.kDutyCycle);
   }
 
   public Command driveCommand(DoubleSupplier speedRequest, DoubleSupplier turnRequest) {
