@@ -12,6 +12,7 @@ import org.lasarobotics.hardware.revrobotics.Spark.MotorKind;
 import org.lasarobotics.utils.GlobalConstants;
 
 import com.revrobotics.CANSparkBase.ControlType;
+import com.revrobotics.CANSparkBase.IdleMode;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -60,12 +61,18 @@ public class DriveSubsystem extends SubsystemBase implements AutoCloseable {
     this.m_navx = drivetrainHardware.navx;
 
     // Sets master motors inverted
-    m_rMasterMotor.setInverted(true);
-    m_rSlaveMotor.setInverted(true);
+    m_lMasterMotor.setInverted(true);
+    m_lSlaveMotor.setInverted(true);
 
     // Makes slaves follow masters
     m_lSlaveMotor.follow(m_lMasterMotor);
     m_rSlaveMotor.follow(m_rMasterMotor);
+
+    m_lMasterMotor.setIdleMode(IdleMode.kBrake);
+    m_rMasterMotor.setIdleMode(IdleMode.kBrake);
+    m_lSlaveMotor.setIdleMode(IdleMode.kBrake);
+    m_rSlaveMotor.setIdleMode(IdleMode.kBrake);
+
   }
 
   /**
