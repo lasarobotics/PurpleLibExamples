@@ -5,6 +5,7 @@
 package frc.robot;
 
 import org.lasarobotics.battery.BatteryTracker;
+import org.lasarobotics.hardware.PurpleManager;
 import org.lasarobotics.utils.GlobalConstants;
 import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LoggedRobot;
@@ -87,6 +88,7 @@ public class Robot extends LoggedRobot {
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
+    PurpleManager.update();
     CommandScheduler.getInstance().run();
   }
 
